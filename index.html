@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e0c0a">
+  <meta name="description" content="BJ 시아만수가 아바타로 진행하는 바카라 라이브. 신규 대표님 첫충전 이벤트 진행 중. 텔레그램과 카카오톡으로 바로 연결됩니다.">
+  <meta property="og:title" content="시아만수 라이브 | 라이브 아바타">
+  <meta property="og:description" content="BJ 시아만수의 라이브 아바타. 신규 대표님 첫충전 이벤트 진행 중.">
+  <meta property="og:image" content="assets/broadcast.png">
+  <title>시아만수 라이브 | 라이브 아바타</title>
+  <link rel="icon" href="assets/broadcast.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <!--
+    연락처만 바꾸면 됩니다.
+    텔레그램: https://t.me/아이디
+    카카오톡: https://open.kakao.com/o/코드  또는  https://pf.kakao.com/채널코드/chat
+  -->
+  <style>
+    :root {
+      --bg: #0e0c0a;
+      --ivory: #f4efe8;
+      --sand: #e7d3b4;
+      --muted: rgba(244, 239, 232, 0.72);
+      --paper: #f4efe6;
+      --ink: #221c17;
+      --ink-soft: #5c534a;
+      --line: rgba(244, 239, 232, 0.14);
+      --paper-line: rgba(34, 28, 23, 0.12);
+      --tg: #1c8ec4;
+      --kakao: #fee500;
+      --serif: "Nanum Myeongjo", Batang, serif;
+      --sans: Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(900px 520px at 18% 42%, rgba(150, 110, 62, 0.16), transparent 62%),
+        var(--bg);
+      color: var(--ivory);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--sand); color: var(--bg); }
+
+    .skip {
+      position: absolute;
+      left: 12px;
+      top: -48px;
+      background: #fff;
+      color: #111;
+      padding: 8px 12px;
+      z-index: 5;
+    }
+    .skip:focus { top: 12px; }
+
+    .top {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: env(safe-area-inset-top);
+    }
+    .house {
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.04em;
+    }
+    .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+    .live i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff3030;
+      box-shadow: 0 0 0 0 rgba(255, 48, 48, 0.55);
+      animation: pulse 1.8s ease-out infinite;
+    }
+
+    .stage {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      min-height: calc(100svh - 64px);
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      gap: 22px;
+      padding-bottom: 28px;
+    }
+    .frame {
+      position: relative;
+      width: min(100%, 440px, 46svh);
+      margin: 0;
+      line-height: 0;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+      animation: settle 1.05s ease both;
+    }
+    .frame img {
+      width: 100%;
+      height: auto;
+      animation: drift 16s ease-out both;
+    }
+    .frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.34) 48%, transparent 64%);
+      transform: translateX(-130%);
+      animation: sheen 1.5s 0.35s ease both;
+      pointer-events: none;
+    }
+
+    .panel {
+      width: min(100%, 440px, 46svh);
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: clamp(2.7rem, 8vw, 4.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+    h1 span { display: block; animation: rise 0.8s ease both; }
+    h1 span:first-child { animation-delay: 0.12s; }
+    h1 span:last-child { color: var(--sand); animation-delay: 0.26s; }
+    .kicker {
+      margin: 18px 0 0;
+      color: var(--sand);
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      animation: rise 0.7s 0.4s ease both;
+    }
+    .event {
+      display: inline-block;
+      margin: 14px 0 0;
+      padding: 7px 12px;
+      border: 1px solid rgba(231, 211, 180, 0.45);
+      border-radius: 999px;
+      color: var(--sand);
+      font-size: 0.88rem;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      animation: rise 0.7s 0.5s ease both, glow 2.8s 1.3s ease-in-out infinite;
+    }
+    .lead {
+      margin: 10px 0 0;
+      max-width: 28rem;
+      margin-inline: auto;
+      color: var(--muted);
+    }
+    .actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+      animation: rise 0.7s 0.62s ease both;
+    }
+    .lead { margin-top: 18px; animation: rise 0.7s 0.76s ease both; }
+    .notes-inner { animation: rise 0.8s ease both; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes settle {
+      from { opacity: 0; transform: translateY(10px) scale(0.985); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes drift {
+      from { transform: scale(1.07); }
+      to { transform: scale(1); }
+    }
+    @keyframes sheen {
+      to { transform: translateX(130%); }
+    }
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 8px rgba(255, 48, 48, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 48, 48, 0); }
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 0 rgba(231, 211, 180, 0); }
+      50% { box-shadow: 0 0 18px rgba(231, 211, 180, 0.28); }
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 0 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .btn svg { width: 18px; height: 18px; flex: none; }
+    .btn-tg { background: var(--tg); color: #fff; }
+    .btn-kakao { background: var(--kakao); color: #1a140b; }
+    .btn:focus-visible, .house:focus-visible {
+      outline: 2px solid var(--sand);
+      outline-offset: 3px;
+    }
+    @media (hover: hover) {
+      .btn:hover { filter: brightness(1.06); }
+    }
+
+    .notes {
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .notes-inner {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 28px;
+    }
+    .sign {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      line-height: 1.45;
+      letter-spacing: -0.04em;
+    }
+    .facts {
+      list-style: none;
+      margin: 36px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 0;
+    }
+    .facts li {
+      padding: 22px 0;
+      border-top: 1px solid var(--paper-line);
+    }
+    .facts h2 {
+      margin: 0 0 6px;
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .facts p { margin: 0; color: var(--ink-soft); }
+    .notes .actions { max-width: 520px; margin-top: 12px; }
+
+    footer { background: var(--paper); color: var(--ink-soft); }
+    .footer-inner {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 18px 0 calc(28px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--paper-line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      justify-content: space-between;
+      font-size: 0.88rem;
+    }
+    footer strong { color: var(--ink); font-weight: 650; }
+    footer p { margin: 0; }
+
+    @media (min-width: 960px) {
+      .stage {
+        grid-template-columns: auto minmax(340px, 1fr);
+        justify-items: stretch;
+        gap: 72px;
+        padding-bottom: 48px;
+      }
+      .frame { width: min(560px, 46vw, 78svh); }
+      .panel {
+        width: auto;
+        max-width: 520px;
+        padding-bottom: 12px;
+        text-align: left;
+      }
+      .lead { margin-inline: 0; }
+      h1 { font-size: clamp(4rem, 5.6vw, 5.5rem); }
+      .facts {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        margin-top: 48px;
+      }
+      .facts li { padding: 0 28px 0 0; border-top: 0; }
+      .facts li + li { border-left: 1px solid var(--paper-line); padding-left: 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 건너뛰기</a>
+
+  <header class="top">
+    <a class="house" href="#top">시아만수</a>
+    <p class="live"><i aria-hidden="true"></i>LIVE</p>
+  </header>
+
+  <main class="stage" id="top">
+    <figure class="frame">
+      <img src="assets/broadcast.png" width="640" height="640" alt="훈훈함이 느껴지는 단어. 우리. 나란히 자전거를 타고 숲길을 가는 두 사람.">
+    </figure>
+    <div class="panel" id="content">
+      <h1><span>라이브</span><span>아바타</span></h1>
+      <p class="kicker">BJ 시아만수가 진행하는 바카라</p>
+      <p class="event">신규 대표님 첫충전 이벤트 진행 중</p>
+      <div class="actions">
+        <a class="btn btn-tg" href="https://t.me/siamansu_live" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 4.5 2.7 11.2c-1.2.46-1.18 1.12-.22 1.41l4.84 1.51 11.2-7.07c.53-.32 1.01-.15.61.21l-9.07 8.2-.35 4.93c.51 0 .73-.23 1.01-.5l2.42-2.35 5.03 3.71c.93.51 1.59.25 1.82-.86l3.3-15.54c.34-1.34-.51-1.95-1.49-1.55z"/></svg>
+          텔레그램 바로 연결
+        </a>
+        <a class="btn btn-kakao" href="https://open.kakao.com/o/siamansu" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4C7.03 4 3 7.13 3 11c0 2.45 1.58 4.6 4 5.89V20l3.2-1.76c.58.08 1.18.12 1.8.12 4.97 0 9-3.13 9-7s-4.03-7-9-7z"/></svg>
+          카카오톡 바로 연결
+        </a>
+      </div>
+      <p class="lead">화면 속 아바타로, 시아만수가 직접 진행합니다.</p>
+    </div>
+  </main>
+
+  <section class="notes" aria-label="안내">
+    <div class="notes-inner">
+      <p class="sign">훈훈함이 느껴지는 단어.<br>우리.</p>
+      <ul class="facts">
+        <li>
+          <h2>아바타로 진행</h2>
+          <p>BJ 시아만수가 화면 속 아바타로 앉아 라이브를 진행합니다.</p>
+        </li>
+        <li>
+          <h2>바카라</h2>
+          <p>플레이어와 뱅커. 시아만수와 함께하는 테이블입니다.</p>
+        </li>
+        <li>
+          <h2>첫충전 이벤트</h2>
+          <p>신규 대표님 첫충전 이벤트를 진행 중입니다. 조건은 연결 후 안내합니다.</p>
+        </li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-tg" href="https://t.me/siamansu_live" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 4.5 2.7 11.2c-1.2.46-1.18 1.12-.22 1.41l4.84 1.51 11.2-7.07c.53-.32 1.01-.15.61.21l-9.07 8.2-.35 4.93c.51 0 .73-.23 1.01-.5l2.42-2.35 5.03 3.71c.93.51 1.59.25 1.82-.86l3.3-15.54c.34-1.34-.51-1.95-1.49-1.55z"/></svg>
+          텔레그램 바로 연결
+        </a>
+        <a class="btn btn-kakao" href="https://open.kakao.com/o/siamansu" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4C7.03 4 3 7.13 3 11c0 2.45 1.58 4.6 4 5.89V20l3.2-1.76c.58.08 1.18.12 1.8.12 4.97 0 9-3.13 9-7s-4.03-7-9-7z"/></svg>
+          카카오톡 바로 연결
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <strong>시아만수 라이브</strong>
+      <p>BJ 시아만수 · 만 19세 이상</p>
+    </div>
+  </footer>
+</body>
+</html>
